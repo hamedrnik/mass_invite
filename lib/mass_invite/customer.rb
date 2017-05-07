@@ -29,6 +29,10 @@ module MassInvite
       self.location = location
     end
 
+    # user_id setter
+    #
+    # @param  [Integer] value User ID
+    # @raise [ArgumentError] if the User ID is not an Integer type
     def user_id=(value)
       unless value.is_a?(Integer)
         raise ArgumentError, 'User ID should be an integer value.'
@@ -37,6 +41,10 @@ module MassInvite
       @user_id = value
     end
 
+    # name setter
+    #
+    # @param  [String] value User name
+    # @raise [ArgumentError] if the User name is not a String type or is empty
     def name=(value)
       unless value.is_a?(String)
         raise ArgumentError, 'Name should be a string value.'
@@ -47,6 +55,12 @@ module MassInvite
       @name = value
     end
 
+    # Creates customer objects from a file
+    #
+    # @param [String, nil] path A full path to a file
+    # @return [Array<Customer>] An array of customer objects
+    # @raise [Errno::ENOENT] if the file doesn't exist
+    # @raise [ArgumentError] if the file contains invalid customer lines
     def self.create_from_file(path = nil)
       default_path = File.expand_path('../../../data/customers', __FILE__)
       customers_file =
@@ -61,6 +75,11 @@ module MassInvite
       end
     end
 
+    # Creates a customer from json string
+    #
+    # @param [String] line A JSON-encoded customer object
+    # @return [Customer] A customer object
+    # @raise [ArgumentError] if the customer line is not a valid customer string
     def self.create_from_json_string(line)
       parsed_line = JSON.parse(line, symbolize_names: true)
 

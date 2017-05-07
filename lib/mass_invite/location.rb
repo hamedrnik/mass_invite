@@ -29,22 +29,40 @@ module MassInvite
       self.long = long
     end
 
+    # It calculates distance from another location in Kilometer
+    #
+    # @param  [Location] location A Location object
+    # @return [Float] the distance from the other location in Kilometer
     def distance_from(location)
       distance(location)
     end
 
+    # Converts latitude in degrees to latitude in radians
+    #
+    # @return [Float] latitude in radians
     def lat_in_rad
       @lat * RAD_PER_DEG
     end
 
+    # Converts longitude in degrees to longitude in radians
+    #
+    # @return [Float] longitude in radians
     def long_in_rad
       @long * RAD_PER_DEG
     end
 
+    # latitude setter
+    #
+    # @param  [Float, String] value latitude in String or Float type
+    # @raise [ArgumentError] if latitude is not valid
     def lat=(value)
       @lat = validate_lat(value)
     end
 
+    # longitude setter
+    #
+    # @param  [Float, String] value longitude in String or Float type
+    # @raise [ArgumentError] if longitude is not valid
     def long=(value)
       @long = validate_long(value)
     end
@@ -65,6 +83,11 @@ module MassInvite
       EARTH_RADIUS_IN_KM * d
     end
 
+    # Validates latitude
+    #
+    # @param  [Float, String] value latitude in String or Float type
+    # @return [Float] latitude in degrees
+    # @raise [ArgumentError] if latitude is not valid
     def validate_lat(value)
       lat = case value
             when String
@@ -84,6 +107,11 @@ module MassInvite
       lat
     end
 
+    # Validates longitude
+    #
+    # @param  [Float, String] value longitude in String or Float type
+    # @return [Float] longitude in degrees
+    # @raise [ArgumentError] if longitude is not valid
     def validate_long(value)
       long = case value
              when String
